@@ -11,3 +11,5 @@ namespace JonathanGraduationBookApp.Core.Model
 		public ICollection<Book> Books { get; set; }
 	}
 }
+
+
