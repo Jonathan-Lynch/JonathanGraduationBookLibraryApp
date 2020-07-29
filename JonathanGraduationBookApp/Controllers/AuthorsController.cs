@@ -11,11 +11,11 @@ namespace JonathanGraduationBookApp.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class AuthorController : ControllerBase
+	public class AuthorsController : ControllerBase
 	{
 		private readonly IAuthorServices _authorServices;
 
-		public AuthorController(IAuthorServices authorServices)
+		public AuthorsController(IAuthorServices authorServices)
 		{
 			_authorServices = authorServices;
 		}
@@ -54,18 +54,24 @@ namespace JonathanGraduationBookApp.Controllers
 
 		//put api/books/:id
 		[HttpPut("{id}")]
-		public IActionResult Put(int id, [FromBody] AuthorModel updatedAuthor)
+		public IActionResult Put(int id, [FromBody] Author updatedAuthor)
 		{
-			var author = _authorServices.Update(updatedAuthor.ToDomainModel());
-			if (author == null) return NotFound();
-			return Ok(author.ToApiModel());
+			try
+			{
+				return Ok(_authorServices.Update(updatedAuthor).ToApiModel());
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("UpdateAuthor", ex.Message);
+				return BadRequest(ModelState);
+			}
 		}
 
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id)
 		{
-			var author = _authorServices.Get(id);
-			if (author == null) return NotFound();
+			//var author = _authorServices.Get(id);
+			//if (author == null) return NotFound();
 			_authorServices.Remove(id);
 			return NoContent();
 		}

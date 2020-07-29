@@ -11,6 +11,7 @@ namespace JonathanGraduationBookApp.Core.Services
 		Book Update(Book book);
 		Book Get(int id);
 		IEnumerable<Book> GetAll();
+		IEnumerable<Book> GetBooksForAuthor(int authorId);
 		void Remove(int id);
 	}
 }

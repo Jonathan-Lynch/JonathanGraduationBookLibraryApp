@@ -7,35 +7,36 @@ namespace JonathanGraduationBookApp.Core.Services
 {
 	public class AuthorServices : IAuthorServices
 	{
-		private readonly IAuthorServices _authorServices;
-		//public AuthorServices(IAuthorServices authorServices)
-		//{
-		//	_authorServices = authorServices;
-		//}
+		private readonly IAuthorRepository _authorRepo;
+		public AuthorServices(IAuthorRepository authorRepo)
+		{
+			_authorRepo = authorRepo;
+		}
 
 		public Author Add(Author newAuthor)
 		{
-			return _authorServices.Add(newAuthor);
+			return _authorRepo.Add(newAuthor);
 		}
 
 		public Author Get(int id)
 		{
-			return _authorServices.Get(id);
+			return _authorRepo.Get(id);
 		}
 
 		public IEnumerable<Author> GetAll()
 		{
-			return _authorServices.GetAll();
+			return _authorRepo.GetAll();
 		}
 
 		public void Remove(int id)
 		{
-			_authorServices.Remove(id);
+			var author = _authorRepo.Get(id);
+			_authorRepo.Remove(author);
 		}
 
 		public Author Update(Author updateAuthor)
 		{
-			return _authorServices.Update(updateAuthor);
+			return _authorRepo.Update(updateAuthor);
 		}
 	}
 }

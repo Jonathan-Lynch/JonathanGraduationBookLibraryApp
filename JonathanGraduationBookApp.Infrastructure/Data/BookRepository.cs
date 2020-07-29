@@ -28,14 +28,20 @@ namespace JonathanGraduationBookApp.Infrastructure.Data
 		public Book Get(int id)
 		{
 			return _appDbContext.Books
-				.Include(t => t.Title)
+				.Include(t => t.Author)
 				.SingleOrDefault(t => t.Id == id);
 		}
 
 		public IEnumerable<Book> GetAll()
 		{
 			return _appDbContext.Books
-				.Include(a => a.Title);
+				.Include(a => a.Author);
+		}
+
+		public IEnumerable<Book> GetBooksForAuthor(int authorId)
+		{
+			return _appDbContext.Books
+				.Include(a => a.Author).Where(a => a.AuthorId == authorId);
 		}
 
 		public void Remove(int id)

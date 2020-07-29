@@ -10,11 +10,11 @@ namespace JonathanGraduationBookApp.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class BookController : ControllerBase
+	public class BooksController : ControllerBase
 	{
 		private readonly IBookServices _bookServices;
 
-		public BookController(IBookServices bookServices)
+		public BooksController(IBookServices bookServices)
 		{
 			_bookServices = bookServices;
 		}
@@ -69,6 +69,13 @@ namespace JonathanGraduationBookApp.Controllers
 			if (book == null) return NotFound();
 			_bookServices.Remove(id);
 			return NoContent();
+		}
+
+		[HttpGet("/api/authors/{authorId}/books")]
+		public IActionResult GetBooksForAuthor(int authorId)
+		{
+			var books = _bookServices.GetBooksForAuthor(authorId).ToApiModels();
+			return Ok(books);
 		}
 	}
 }

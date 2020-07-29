@@ -28,33 +28,31 @@ namespace JonathanGraduationBookApp.Infrastructure.Data
 		public Author Get(int id)
 		{
 			return _appDbContext.Authors
-				.Include(a => a.AuthorName)
+				.Include(a => a.Books)
 				.SingleOrDefault(a => a.Id == id);
 		}
 
 		public IEnumerable<Author> GetAll()
 		{
-			return _appDbContext.Authors.Include(a => a.AuthorName);
+			return _appDbContext.Authors.Include(a => a.Books);
 		}
 
-		public void Remove(int id)
+		public void Remove(Author author)
 		{
-			var currentAuthor = _appDbContext.Authors.Include(a => a.Id == id);
-			if (currentAuthor == null)
-			{
-				_appDbContext.Authors.Remove((Author)currentAuthor);
+				_appDbContext.Authors.Remove(author);
 				_appDbContext.SaveChanges();
-			}
 		}
 
 		public Author Update(Author updatedAuthor)
 		{
 			var currentAuthor = _appDbContext.Authors.Find(updatedAuthor.Id);
 			if (currentAuthor == null) return null;
+			
 			_appDbContext.Entry(currentAuthor)
 				.CurrentValues
 				.SetValues(updatedAuthor);
-			_appDbContext.Authors.Update(updatedAuthor);
+
+			_appDbContext.Authors.Update(currentAuthor);
 			_appDbContext.SaveChanges();
 			return currentAuthor;
 		}

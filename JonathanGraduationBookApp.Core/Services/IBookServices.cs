@@ -23,6 +23,6 @@ namespace JonathanGraduationBookApp.Core.Services
 
 		//List
 		IEnumerable<Book> GetAll();
-		IEnumerable<Book> GetBooksForAuthor(int id);
+		IEnumerable<Book> GetBooksForAuthor(int authorId);
 	}
 }

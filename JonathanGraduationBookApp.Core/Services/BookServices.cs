@@ -30,7 +30,7 @@ namespace JonathanGraduationBookApp.Core.Services
 
 		public IEnumerable<Book> GetBooksForAuthor(int id)
 		{
-			return _bookRepository.GetAll();
+			return _bookRepository.GetBooksForAuthor(id);
 		}
 
 		public void Remove(int id)
