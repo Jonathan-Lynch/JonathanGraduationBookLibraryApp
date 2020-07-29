@@ -8,10 +8,10 @@ namespace JonathanGraduationBookApp.Core.Services
 	public class AuthorServices : IAuthorServices
 	{
 		private readonly IAuthorServices _authorServices;
-		public AuthorServices(IAuthorServices authorServices)
-		{
-			_authorServices = authorServices;
-		}
+		//public AuthorServices(IAuthorServices authorServices)
+		//{
+		//	_authorServices = authorServices;
+		//}
 
 		public Author Add(Author newAuthor)
 		{
